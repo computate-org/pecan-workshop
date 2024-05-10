@@ -1,0 +1,318 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: KeycloakRealmImport
+metadata:
+  name: pecan
+  namespace: keycloak
+  labels:
+    app: keycloak
+    realm: PEcAn
+spec:
+  keycloakCRName: keycloak
+  realm:
+    id: "PEcAn"
+    realm: "PEcAn"
+    enabled: true
+    displayName: "PEcAn"
+    registrationAllowed: true
+    resetPasswordAllowed: true
+    editUsernameAllowed: true
+    rememberMe: true
+    verifyEmail: true
+    loginWithEmailAllowed: true
+
+    groups:
+      - id: pecan-user
+        name: pecan-admin
+      - id: pecan-user
+        name: pecan-user
+    users:
+      - id: pecan-admin
+        username: pecan-admin
+        groups:
+          - pecan-admin
+      - id: user1
+        username: user1
+        groups:
+          - pecan-user
+        credentials:
+          - type: Password
+            temporary: false
+            value: openshift
+      - id: user2
+        username: user2
+        groups:
+          - pecan-user
+        credentials:
+          - type: Password
+            temporary: false
+            value: openshift
+      - id: user3
+        username: user3
+        groups:
+          - pecan-user
+        credentials:
+          - type: Password
+            temporary: false
+            value: openshift
+      - id: user4
+        username: user4
+        groups:
+          - pecan-user
+        credentials:
+          - type: Password
+            temporary: false
+            value: openshift
+      - id: user5
+        username: user5
+        groups:
+          - pecan-user
+        credentials:
+          - type: Password
+            temporary: false
+            value: openshift
+    roles:
+      realm:
+        - id: cluster-prod-view-all
+          name: cluster-prod-view-all
+        - id: cluster-admin
+          name: cluster-admin
+    clientScopes:
+      - id: pecan
+        name: pecan
+        description: A client scope for the pecan client
+        protocol: openid-connect
+        protocolMappers:
+          - config:
+              access.token.claim: 'true'
+              id.token.claim: 'false'
+              included.client.audience: 'pecan'
+            consentRequired: false
+            id: pecan
+            name: pecan
+            protocol: openid-connect
+            protocolMapper: oidc-audience-mapper
+      - id: pecan-profile
+        name: profile
+        description: "OpenID Connect built-in scope: profile"
+        protocol: openid-connect
+        protocolMappers:
+          - config:
+              access.token.claim: 'true'
+              claim.name: email_verified
+              id.token.claim: 'true'
+              jsonType.label: boolean
+              user.attribute: emailVerified
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-email-verified
+            name: email verified
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-property-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: preferred_username
+              id.token.claim: 'true'
+              jsonType.label: String
+              user.attribute: username
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-username
+            name: username
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-property-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: groups
+              id.token.claim: 'true'
+              jsonType.label: String
+              multivalued: 'true'
+              user.attribute: foo
+            consentRequired: false
+            id: pecan-groups
+            name: groups
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-realm-role-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: family_name
+              id.token.claim: 'true'
+              jsonType.label: String
+              user.attribute: lastName
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-family-name
+            name: family name
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-property-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: given_name
+              id.token.claim: 'true'
+              jsonType.label: String
+              user.attribute: firstName
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-given-name
+            name: given name
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-property-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: email
+              id.token.claim: 'true'
+              jsonType.label: String
+              user.attribute: email
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-email
+            name: email
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-property-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: middle_name
+              id.token.claim: 'true'
+              jsonType.label: String
+              user.attribute: middleName
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-middle-name
+            name: middle name
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-attribute-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: locale
+              id.token.claim: 'true'
+              jsonType.label: String
+              user.attribute: locale
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-locale
+            name: locale
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-attribute-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: nickname
+              id.token.claim: 'true'
+              jsonType.label: String
+              user.attribute: nickname
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-nickname
+            name: nickname
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-attribute-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: updated_at
+              id.token.claim: 'true'
+              jsonType.label: long
+              user.attribute: updatedAt
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-updated-at
+            name: updated at
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-attribute-mapper
+          - config:
+              access.token.claim: 'true'
+              id.token.claim: 'true'
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-full-name
+            name: full name
+            protocol: openid-connect
+            protocolMapper: oidc-full-name-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: profile
+              id.token.claim: 'true'
+              jsonType.label: String
+              user.attribute: profile
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-profile
+            name: profile
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-attribute-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: resource_access.${client_id}.roles
+              jsonType.label: String
+              multivalued: 'true'
+              user.attribute: foo
+            consentRequired: false
+            id: pecan-client-roles
+            name: client roles
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-client-role-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: zoneinfo
+              id.token.claim: 'true'
+              jsonType.label: String
+              user.attribute: zoneinfo
+              userinfo.token.claim: 'true'
+            consentRequired: false
+            id: pecan-zoneinfo
+            name: zoneinfo
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-attribute-mapper
+          - config:
+              access.token.claim: 'true'
+              claim.name: realm_access.roles
+              jsonType.label: String
+              multivalued: 'true'
+              user.attribute: foo
+            consentRequired: false
+            id: pecan-realm-roles
+            name: realm roles
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-realm-role-mapper
+    defaultDefaultClientScopes:
+      - pecan
+    clients:
+      - id: pecan
+        clientId: pecan
+        standardFlowEnabled: true
+        serviceAccountsEnabled: true
+        authorizationServicesEnabled: true
+        frontchannelLogout: true
+        protocol: openid-connect
+        redirectUris: []
+        defaultClientScopes:
+          - profile
+          - ai4cloudops
+        authorizationSettings:
+          decisionStrategy: AFFIRMATIVE
+      - id: ai4cloudops
+        clientId: ai4cloudops
+        standardFlowEnabled: true
+        serviceAccountsEnabled: true
+        authorizationServicesEnabled: true
+        frontchannelLogout: true
+        protocol: openid-connect
+        redirectUris: []
+        defaultClientScopes:
+          - profile
+          - ai4cloudops
+        authorizationSettings:
+          decisionStrategy: AFFIRMATIVE
+      - id: oct
+        clientId: oct
+        standardFlowEnabled: true
+        serviceAccountsEnabled: true
+        authorizationServicesEnabled: true
+        frontchannelLogout: true
+        protocol: openid-connect
+        redirectUris: []
+        defaultClientScopes:
+          - profile
+          - oct
+        authorizationSettings:
+          decisionStrategy: AFFIRMATIVE
+  instanceSelector:
+    matchLabels:
+      app: keycloak
