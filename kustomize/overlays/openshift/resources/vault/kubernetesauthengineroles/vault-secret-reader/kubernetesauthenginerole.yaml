@@ -8,6 +8,8 @@ spec:
   authentication: 
     path: kubernetes
     role: policy-admin
+  connection:
+    address: 'http://vault.vault.svc.cluster.local:8200'
   path: kubernetes
   policies:
     - vault-secret-reader
