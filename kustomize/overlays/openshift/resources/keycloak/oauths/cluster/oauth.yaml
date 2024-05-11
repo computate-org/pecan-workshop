@@ -14,12 +14,12 @@ spec:
       mappingMethod: claim
       type: OpenID
       openID:
-        clientID: smartvillage
+        clientID: pecan
         clientSecret:
           name: keycloak-openshift-client-secret
         ca:
           # Create with this command: 
-          # oc -n openshift-config create configmap keycloak-ca-config-map --from-literal="ca.crt=$(oc -n openshift-ingress-operator get secret/router-ca -o jsonpath='{.data.tls\.crt}' | base64 -d)"
+          # oc -n openshift-config create configmap keycloak-ca-config-map --from-literal="ca.crt=$(oc -n keycloak get secret/keycloak-certificate -o jsonpath='{.data.ca\.crt}' | base64 -d)"
           name: keycloak-ca-config-map
         claims: 
           preferredUsername:
@@ -32,4 +32,4 @@ spec:
             - email
           groups:
             - groups
-        issuer: https://keycloak.apps-crc.testing/auth/realms/PEcAn
+        issuer: https://keycloak.apps-crc.testing/realms/PEcAn

@@ -21,17 +21,23 @@ spec:
     loginWithEmailAllowed: true
 
     groups:
-      - id: pecan-user
+      - id: pecan-admin
         name: pecan-admin
       - id: pecan-user
         name: pecan-user
     users:
       - id: pecan-admin
         username: pecan-admin
+        enabled: true
         groups:
           - pecan-admin
       - id: user1
         username: user1
+        email: user1@mailinator.com
+        firstName: 'User'
+        lastName: '1'
+        enabled: true
+        emailVerified: true
         groups:
           - pecan-user
         credentials:
@@ -40,6 +46,11 @@ spec:
             value: openshift
       - id: user2
         username: user2
+        email: user2@mailinator.com
+        firstName: 'User'
+        lastName: '2'
+        enabled: true
+        emailVerified: true
         groups:
           - pecan-user
         credentials:
@@ -48,6 +59,11 @@ spec:
             value: openshift
       - id: user3
         username: user3
+        email: user3@mailinator.com
+        firstName: 'User'
+        lastName: '3'
+        enabled: true
+        emailVerified: true
         groups:
           - pecan-user
         credentials:
@@ -56,6 +72,11 @@ spec:
             value: openshift
       - id: user4
         username: user4
+        email: user4@mailinator.com
+        firstName: 'User'
+        lastName: '4'
+        enabled: true
+        emailVerified: true
         groups:
           - pecan-user
         credentials:
@@ -64,6 +85,11 @@ spec:
             value: openshift
       - id: user5
         username: user5
+        email: user5@mailinator.com
+        firstName: 'User'
+        lastName: '5'
+        enabled: true
+        emailVerified: true
         groups:
           - pecan-user
         credentials:
@@ -72,10 +98,10 @@ spec:
             value: openshift
     roles:
       realm:
-        - id: cluster-prod-view-all
-          name: cluster-prod-view-all
-        - id: cluster-admin
-          name: cluster-admin
+        - id: pecan-user
+          name: pecan-user
+        - id: pecan-admin
+          name: pecan-admin
     clientScopes:
       - id: pecan
         name: pecan
@@ -281,36 +307,11 @@ spec:
         authorizationServicesEnabled: true
         frontchannelLogout: true
         protocol: openid-connect
-        redirectUris: []
+        redirectUris:
+          - https://oauth-openshift.apps-crc.testing/oauth2callback/keycloak
         defaultClientScopes:
           - profile
-          - ai4cloudops
-        authorizationSettings:
-          decisionStrategy: AFFIRMATIVE
-      - id: ai4cloudops
-        clientId: ai4cloudops
-        standardFlowEnabled: true
-        serviceAccountsEnabled: true
-        authorizationServicesEnabled: true
-        frontchannelLogout: true
-        protocol: openid-connect
-        redirectUris: []
-        defaultClientScopes:
-          - profile
-          - ai4cloudops
-        authorizationSettings:
-          decisionStrategy: AFFIRMATIVE
-      - id: oct
-        clientId: oct
-        standardFlowEnabled: true
-        serviceAccountsEnabled: true
-        authorizationServicesEnabled: true
-        frontchannelLogout: true
-        protocol: openid-connect
-        redirectUris: []
-        defaultClientScopes:
-          - profile
-          - oct
+          - pecan
         authorizationSettings:
           decisionStrategy: AFFIRMATIVE
   instanceSelector:
